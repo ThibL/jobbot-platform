@@ -35,6 +35,5 @@ jobs:
 
       - name: Run Tests
         run: |
-          # Si vous avez des tests dans web & api
           yarn workspace web test
           yarn workspace api test
