@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "jobbot-platform",
+  "version": "0.1.0",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "bootstrap": "yarn install",
+    "build": "yarn workspace web build && yarn workspace api build",
+    "dev:web": "yarn workspace web dev",
+    "dev:api": "yarn workspace api start:dev",
+    "lint": "eslint --ext .ts,.tsx .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}
