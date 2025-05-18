@@ -12,7 +12,7 @@
     "build": "yarn workspace web build && yarn workspace api build",
     "dev:web": "yarn workspace web dev",
     "dev:api": "yarn workspace api start:dev",
-    "lint": "eslint --ext .ts,.tsx .",
+    "lint": "eslint . --ext .ts,.tsx --ignore-pattern 'node_modules/'",
     "format": "prettier --write ."
   },
   "devDependencies": {
