@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-
+    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -23,25 +23,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache yarn dependencies
-        uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: 'yarn'
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Type Check
-        run: yarn tsc --noEmit
+        run: yarn typecheck
 
       - name: Lint
         run: yarn lint
@@ -49,16 +37,5 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Run Tests
+      - name: Test
         run: yarn test
-
-      - name: Cache Build
-        uses: actions/cache@v3
-        with:
-          path: |
-            .next
-            build
-            dist
-          key: ${{ runner.os }}-build-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-build-
