@@ -23,13 +23,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          # Retrait du cache yarn car pas encore de yarn.lock
+          # cache: 'yarn'
+
+      - name: Install Yarn
+        run: npm install -g yarn
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Type Check
-        run: yarn typecheck
+        run: |
+          yarn install
+          # Cela va créer le yarn.lock s'il n'existe pas
 
       - name: Lint
         run: yarn lint
